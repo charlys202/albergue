@@ -3,12 +3,13 @@ from tkinter import ttk, messagebox
 from modulos.registro import abrir_ventana_registro
 from modulos.consultas import abrir_ventana_consulta
 from modulos.registro_voluntarios import abrir_ventana_voluntarios
-from modulos.dashboard import abrir_ventana_dashboard  # Nueva importación
+from modulos.dashboard import abrir_ventana_dashboard
+from modulos.graficas import abrir_ventana_graficas
 
 def main():
     ventana = tk.Tk()
     ventana.title("Sistema Albergue Fronterizo")
-    ventana.geometry("500x400")
+    ventana.geometry("500x450")
     ventana.config(bg="#f0f0f0")
     
     # Centrar la ventana
@@ -53,7 +54,8 @@ def main():
             "#27ae60": "#229954",
             "#e67e22": "#d35400",
             "#9b59b6": "#8e44ad",
-            "#e74c3c": "#c0392b"
+            "#e74c3c": "#c0392b",
+            "#17a2b8": "#138496"
         }
         return color_map.get(color, color)
 
@@ -62,6 +64,7 @@ def main():
     crear_boton("👥 Registro de Huéspedes", lambda: abrir_ventana_registro(ventana), "#27ae60")
     crear_boton("🔍 Consultar Huéspedes", lambda: abrir_ventana_consulta(ventana), "#e67e22")
     crear_boton("🤝 Registrar Voluntarios", lambda: abrir_ventana_voluntarios(ventana), "#9b59b6")
+    crear_boton("📈 Gráficas del Albergue", lambda: abrir_ventana_graficas(ventana), "#17a2b8")
     crear_boton("❌ Salir", ventana.quit, "#e74c3c")
 
     # Footer
