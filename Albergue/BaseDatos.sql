@@ -69,7 +69,7 @@ CREATE TABLE Camas (
 CREATE TABLE UsuariosSistema (
     id_usuario INT IDENTITY(1,1) PRIMARY KEY,
     usuario VARCHAR(50) UNIQUE NOT NULL,
-    contrase�a_hash VARCHAR(200) NOT NULL,
+    contraseña_hash VARCHAR(200) NOT NULL,
     rol VARCHAR(50) NOT NULL,
     nombre_completo VARCHAR(150),
     correo VARCHAR(100),
@@ -85,4 +85,33 @@ CREATE TABLE HistorialMovimientos (
     observaciones TEXT,
     FOREIGN KEY (id_persona) REFERENCES PersonasAlbergadas(id_persona)
 );
+-- Graficas --
+CREATE TABLE Suministros (
+    id_suministro INT PRIMARY KEY IDENTITY(1,1),
+    tipo_suministro NVARCHAR(100) NOT NULL,
+    descripcion NVARCHAR(255),
+    cantidad INT NOT NULL DEFAULT 0,
+    unidad_medida NVARCHAR(50), -- kg, litros, piezas, etc.
+    fecha_ingreso DATE DEFAULT GETDATE(),
+    fecha_vencimiento DATE,
+    proveedor NVARCHAR(150),
+    estado NVARCHAR(50) DEFAULT 'Disponible', -- Disponible, Agotado, Por vencer
+    observaciones NVARCHAR(500)
+);
 
+-- Insertar datos de ejemplo
+INSERT INTO Suministros (tipo_suministro, descripcion, cantidad, unidad_medida, proveedor, estado) VALUES
+('Alimentos', 'Arroz, frijoles, aceite', 450, 'kg', 'Donación Municipal', 'Disponible'),
+('Medicinas', 'Medicamentos básicos', 250, 'piezas', 'Cruz Roja', 'Disponible'),
+('Ropa', 'Ropa de abrigo y básica', 200, 'piezas', 'Donaciones Particulares', 'Disponible'),
+('Otros', 'Artículos de higiene y limpieza', 100, 'piezas', 'ONG Local', 'Disponible');
+
+-- Tabla para registrar salidas de personas (opcional)
+CREATE TABLE SalidasPersonas (
+    id_salida INT PRIMARY KEY IDENTITY(1,1),
+    id_persona INT FOREIGN KEY REFERENCES PersonasAlbergadas(id_persona),
+    fecha_salida DATE NOT NULL DEFAULT GETDATE(),
+    motivo_salida NVARCHAR(200), -- Traslado, Reunificación familiar, etc.
+    destino NVARCHAR(200),
+    observaciones NVARCHAR(500)
+);
