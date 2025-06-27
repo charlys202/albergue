@@ -181,5 +181,3 @@ def abrir_ventana_consulta(padre):
     #crear_boton_accion("📝 Editar", editar, "#17a2b8", "left")#
     crear_boton_accion("🗑️ Eliminar", eliminar, "#e74c3c", "left")
     crear_boton_accion("❌ Cerrar", ventana.destroy, "#95a5a6", "right")
-
-
